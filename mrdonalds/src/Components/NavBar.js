@@ -1,7 +1,8 @@
 import React from "react";
-import { SignBar } from './SignBar'
 import styled from "styled-components";
 import logoImg from "../image/logo.svg";
+import signImg from "../image/sign.svg";
+
 const NavBarStyled = styled.header`
   position: fixed;
   top: 0;
@@ -23,13 +24,20 @@ const Logo = styled.div`
 `;
 
 const H1 = styled.h1`
-
-font-size: 24px;
-margin-left: 15px;
+  font-size: 24px;
+  margin-left: 15px;
 `;
 const ImgLogo = styled.img`
- width: 50px;
+  width: 50px;
 `;
+
+const Login = styled.button`
+
+  background-color: transparent;
+  border-color: transparent;
+  color: white;
+  font-size: 16px;
+`
 
 export const NavBar = () => {
   return (
@@ -38,7 +46,10 @@ export const NavBar = () => {
         <ImgLogo src={logoImg} alt="logo" />
         <H1>MrDonald's</H1>
       </Logo>
-        <SignBar/>
+      <Login>
+        <img src={signImg} alt='войти'></img>
+        <p>войти</p>
+        </Login>
     </NavBarStyled>
   );
 };
