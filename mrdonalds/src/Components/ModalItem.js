@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Button } from "./Button";
+import { ButtonCheckOut } from "./ButtonCheckOut";
 
 const Overlay = styled.div`
   display: flex;
@@ -28,31 +28,43 @@ const Banner = styled.div`
   background-image: url(${({ img }) => img});
   background-size: cover;
   background-position: center;
-  margin-bottom: 20px;
 `;
 
-const TitleWrap = styled.div`
+// const TitleWrap = styled.div`
+//   display: flex;
+//   justify-content: space-between;
+//   padding: 20px 53px 0 37px;
+// `;
+
+// const Price = styled.h3`
+//   font-family: "Pacifico";
+//   font-weight: 400;
+//   font-size: 30px;
+//   line-height: 53px;
+//   color: #000000;
+// `;
+// const ProductName = styled.h3`
+//   font-family: "Pacifico";
+//   font-weight: 400;
+//   font-size: 30px;
+//   line-height: 53px;
+//   color: #000000;
+// `;
+
+const Content = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100% - 200px);
+  padding: 30px;
+`
+const HeaderContent = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 20px 53px 0 37px;
-`;
-
-const Price = styled.h3`
-  font-family: "Pacifico";
-  font-weight: 400;
-  font-size: 30px;
-  line-height: 53px;
-  color: #000000;
-`;
-const ProductName = styled.h3`
-  font-family: "Pacifico";
-  font-weight: 400;
-  font-size: 30px;
-  line-height: 53px;
-  color: #000000;
-`;
-
-
+  font-size: 24px;
+  font-weight: 700;
+  font-family: 'Pacifico', cursive;
+`
 
 export const ModalItem = ({ openItem, setOpenItem }) => {
   function closeModal(e) {
@@ -65,16 +77,14 @@ export const ModalItem = ({ openItem, setOpenItem }) => {
     <Overlay id="overlay" onClick={closeModal}>
       <Modal>
         <Banner img={openItem.img} />
-        <TitleWrap>
-          <ProductName>{openItem.name}</ProductName>
-          <Price>
-            {openItem.price.toLocaleString("ru-RU", {
-              style: "currency",
-              currency: "RUB",
-            })}
-          </Price>
-        </TitleWrap>
-        <Button/>
+        <Content>
+    <HeaderContent>
+      <div>{openItem.name}</div>
+      <div>{openItem.price}</div>
+    </HeaderContent>
+        <ButtonCheckOut>Добавить</ButtonCheckOut>
+
+        </Content>
       </Modal>
     </Overlay>
   );
