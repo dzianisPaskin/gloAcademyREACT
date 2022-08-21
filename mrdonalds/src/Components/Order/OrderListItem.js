@@ -37,6 +37,7 @@ export const OrderListItem = ({order}) => {
   return (
     <OrderItemStyled>
       <ItemName>{order.name}</ItemName>
+   
       <span>{order.count}</span>
       <ItemPrice>{FormatCurrency(totalPriceItems(order))}</ItemPrice>
       <TrashBtn/>

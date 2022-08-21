@@ -12,7 +12,7 @@ import { useOrders } from "./Components/Hooks/useOrders";
 
 
 
-function App() {
+export default function App() {
 
   const openItem = useOpenItem();
   const orders = useOrders()
@@ -28,4 +28,4 @@ function App() {
   );
 }
 
-export default App;
+
