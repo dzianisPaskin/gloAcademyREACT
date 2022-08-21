@@ -1,6 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import { ButtonCheckOut } from "../Style/ButtonCheckOut";
+import { CountItem } from "./CountItem";
+import { useCount } from "../Hooks/useCount";
+import { totalPriceItems } from "../Functions/secondaryFunction";
+import { FormatCurrency } from "../Functions/secondaryFunction";
+
+const TotalPriceItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 
 const Overlay = styled.div`
   display: flex;
@@ -45,24 +54,27 @@ const HeaderContent = styled.div`
   font-family: "Pacifico", cursive;
 `;
 
+// export  const totalPriceItems = order => order.price * order.count;
+
 export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
+  const counter = useCount();
+
   const closeModal = (e) => {
     if (e.target.id === "overlay") {
       setOpenItem(null);
     }
   };
 
+ 
+
   const order = {
-    ...openItem
-
-
+    ...openItem,
+    count: counter.count
   };
 
   const addToOrder = () => {
-
     setOrders([...orders, order]);
     setOpenItem(null);
-
   };
 
   return (
@@ -74,6 +86,11 @@ export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
             <div>{openItem.name}</div>
             <div>{openItem.price}</div>
           </HeaderContent>
+          <CountItem {...counter} />
+          <TotalPriceItem>
+            <span>Цена:</span>
+            <span>{FormatCurrency(totalPriceItems(order))}</span>
+          </TotalPriceItem>
           <ButtonCheckOut onClick={addToOrder}>Добавить</ButtonCheckOut>
         </Content>
       </Modal>

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import BannerImg from '../../../image/banner.png'
+import BannerImg from '../../image/banner.png'
 
 
 const BannerStyled = styled.div`
