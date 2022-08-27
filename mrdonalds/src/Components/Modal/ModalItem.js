@@ -6,7 +6,9 @@ import { useCount } from "../Hooks/useCount";
 import { totalPriceItems } from "../Functions/secondaryFunction";
 import { FormatCurrency } from "../Functions/secondaryFunction";
 import { Toppings } from "./Toppings";
+import { Choiсes } from "./Choiсes";
 import { useToppings } from "../Hooks/useToppings";
+import { useChoices } from "../Hooks/useChoices";
 
 const TotalPriceItem = styled.div`
   display: flex;
@@ -61,6 +63,8 @@ const HeaderContent = styled.div`
 export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
   const counter = useCount();
   const toppings = useToppings(openItem);
+  const choices = useChoices(openItem)
+  const isEdit = openItem.index > -1;
 
   const closeModal = (e) => {
     if (e.target.id === "overlay") {
@@ -68,18 +72,23 @@ export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
     }
   };
 
- 
-
   const order = {
     ...openItem,
     count: counter.count,
-    topping: toppings.toppings
+    topping: toppings.toppings,
+    choice: choices.choice
   };
 
   const addToOrder = () => {
     setOrders([...orders, order]);
     setOpenItem(null);
   };
+
+  const editOrder = () => {
+    const  newOrders = [...orders];
+    newOrders[openItem.index] = order;
+    setOrders(newOrders);
+  }
 
   return (
     <Overlay id="overlay" onClick={closeModal}>
@@ -92,12 +101,14 @@ export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
           </HeaderContent>
           <CountItem {...counter} />
           {openItem.toppings && <Toppings {...toppings}/>}
-          
+          {openItem.choices && <Choiсes {...choices} openItem={openItem}/>}
           <TotalPriceItem>
             <span>Цена:</span>
             <span>{FormatCurrency(totalPriceItems(order))}</span>
           </TotalPriceItem>
-          <ButtonCheckOut onClick={addToOrder}>Добавить</ButtonCheckOut>
+          <ButtonCheckOut onClick={isEdit ? editOrder : addToOrder}
+            disabled={order.choices && !order.choice}
+          >Добавить</ButtonCheckOut>
         </Content>
       </Modal>
     </Overlay>
